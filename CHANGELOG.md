@@ -2,6 +2,32 @@
 
 All notable changes to PulseMap will be documented in this file.
 
+## [0.5.2] - 2026-08-31
+
+### Security
+
+- **Supabase project ref and anon JWT removed from `scripts/seed.mjs`** — the script
+  hardcoded `xkggssmlewibtiaumizb.supabase.co` and its anon key. It now reads
+  `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` from the environment
+  and exits 1 when either is unset, matching `src/lib/supabase.ts` and
+  `src/lib/pipeline/supabase-admin.ts`, which already did.
+- Accurate severity: RLS on that project granted anon `SELECT` only, with no INSERT
+  policy on `outbreaks`, and the host is NXDOMAIN, so the key was inert. It is still
+  worth removing because the string is greppable and every other call site in the repo
+  read it from the environment.
+- The literal remains reachable at commit `5f1cc46`. Clearing it from history is a
+  rewrite and has not been done.
+
+### Fixed — README claims that the repo disproves
+
+- Removed "All data is 100% real, sourced directly from WHO Disease Outbreak News.
+  No mock or seed data." The repo ships `src/lib/seed-data.ts` and the deployed demo
+  renders it. The section now says which of the two sources is in play and points at
+  the header badge that reports it.
+- ASCII architecture said 7 components; there are 8. `StatsBar.tsx` was missing from
+  Project Structure.
+- The WHO badge and the hero line no longer advertise a live feed on the public demo.
+
 ## [0.5.1] - 2026-03-14
 
 ### Fixed
