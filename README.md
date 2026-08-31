@@ -3,14 +3,14 @@
   <img src="https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=nextdotjs" alt="Next.js 16" />
   <img src="https://img.shields.io/badge/Supabase-Postgres-3ecf8e?style=flat-square&logo=supabase" alt="Supabase" />
   <img src="https://img.shields.io/badge/Mapbox_GL-dark--v11-4264fb?style=flat-square&logo=mapbox" alt="Mapbox" />
-  <img src="https://img.shields.io/badge/WHO_API-live_feed-0072bc?style=flat-square" alt="WHO Data" />
+  <img src="https://img.shields.io/badge/WHO_API-Disease_Outbreak_News-0072bc?style=flat-square" alt="WHO Data" />
 </p>
 
 # 🌍 PulseMap
 
 **Global disease surveillance, visualized like a weather radar.**
 
-Track outbreaks. Monitor spread patterns. Stay informed — powered by real WHO data, refreshed every 6 hours.
+Track outbreaks. Monitor spread patterns. WHO Disease Outbreak News on a 6-hour Vercel Cron cycle when you run it against your own Supabase project. The public demo serves the cached static snapshot.
 
 [**→ Live Demo**](https://pulsemap-three.vercel.app)
 
@@ -46,7 +46,7 @@ This isn't a wrapper around an API. It's a full data pipeline: ingestion from WH
                     │     (Next.js 16 App Router)       │
                     ├──────────┬───────────┬────────────┤
                     │  Mapbox  │  React UI │  API Layer │
-                    │  GL JS   │  7 comps  │  2 routes  │
+                    │  GL JS   │  8 comps  │  2 routes  │
                     │  dark-v11│  client   │  server    │
                     ├──────────┴───────────┴────────────┤
                     │         Supabase (Postgres)       │
@@ -118,7 +118,9 @@ Run the migration in your Supabase SQL editor:
 
 ### Ingest Data
 
-All data is **100% real** — sourced directly from WHO Disease Outbreak News. No mock or seed data.
+Outbreak records come from WHO Disease Outbreak News. When Supabase is unreachable the UI
+serves `src/lib/seed-data.ts`, a static snapshot, and the data-source badge in the header
+tells you which of the two you are looking at. The public demo is currently on that snapshot.
 
 ```bash
 # Pull current outbreaks
