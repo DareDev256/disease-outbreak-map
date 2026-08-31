@@ -1,8 +1,17 @@
 // Seed script: runs migration SQL and inserts outbreak data into Supabase
-// Usage: node scripts/seed.mjs
+// Usage: NEXT_PUBLIC_SUPABASE_URL=... NEXT_PUBLIC_SUPABASE_ANON_KEY=... node scripts/seed.mjs
 
-const SUPABASE_URL = "https://xkggssmlewibtiaumizb.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhrZ2dzc21sZXdpYnRpYXVtaXpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxMDMwMjcsImV4cCI6MjA4NTY3OTAyN30.QssXTWqi5XJFPxIl_Dg-7EvHVw9BOWSXnxYKVTvhiXY";
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+  console.error(
+    "[seed] Missing env vars. Set them before running:\n" +
+      "  NEXT_PUBLIC_SUPABASE_URL=... NEXT_PUBLIC_SUPABASE_ANON_KEY=... node scripts/seed.mjs\n" +
+      "See .env.local.example."
+  );
+  process.exit(1);
+}
 
 const headers = {
   apikey: SUPABASE_ANON_KEY,
