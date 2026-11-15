@@ -31,16 +31,17 @@ export async function POST(request: NextRequest) {
       );
     }
     const body = parsed.data;
-    const { startDate, endDate, limit = 200 } = body as {
+    const { startDate, endDate, limit = 200, source: rawSource } = body as {
       startDate?: string;
       endDate?: string;
       limit?: number;
-      source?: string;
+      source?: unknown;
     };
 
     // Validate source against allowlist — never reflect raw user input
-    const source = ALLOWED_SOURCES.has(body.source) ? body.source : null;
-    if (body.source && !source) {
+    const source =
+      typeof rawSource === "string" && ALLOWED_SOURCES.has(rawSource) ? rawSource : null;
+    if (rawSource && !source) {
       return NextResponse.json(
         { error: "Unsupported source. Available: who, all" },
         { status: 400 }

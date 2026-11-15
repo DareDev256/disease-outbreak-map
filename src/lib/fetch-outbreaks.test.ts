@@ -103,7 +103,7 @@ describe("fetchOutbreakGeoJSON", () => {
     expect(mockFrom).toHaveBeenCalledWith("outbreak_locations");
     expect(mockSelect).toHaveBeenCalled();
     // Verify the select includes the join
-    const selectArg = mockSelect.mock.calls[0][0] as string;
+    const selectArg = (mockSelect.mock.calls[0] as unknown[])[0] as string;
     expect(selectArg).toContain("outbreaks");
     expect(selectArg).toContain("disease_name");
   });
