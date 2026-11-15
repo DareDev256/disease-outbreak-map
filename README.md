@@ -1,3 +1,25 @@
+# PulseMap: global disease outbreak map
+
+PulseMap is an open-source disease outbreak map: it reads WHO Disease Outbreak News, geocodes, dedupes and severity-scores each report, and draws them on one dark map as a heat map, hotspots and spread arcs, for developers and public-health readers who want the picture in one place.
+
+![PulseMap showing WHO outbreak reports as severity-coloured hotspots on a world map, with the live feed below](docs/screenshots/2026-11-15_disease-outbreak-map.png)
+
+[**Live demo**](https://pulsemap-three.vercel.app). The public demo serves a cached static snapshot, and the badge at the top of the map says which data you are seeing.
+
+## Quick start
+
+```bash
+git clone https://github.com/DareDev256/disease-outbreak-map.git
+cd disease-outbreak-map
+npm install
+cp .env.local.example .env.local   # add your Mapbox token and Supabase keys
+npm run dev
+```
+
+Without Supabase the app falls back to the bundled snapshot in `src/lib/seed-data.ts`. Full setup is under [Getting Started](#getting-started).
+
+License: MIT, see [LICENSE](LICENSE).
+
 <p align="center">
   <img src="https://img.shields.io/badge/status-live-22c55e?style=flat-square" alt="Status: Live" />
   <img src="https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=nextdotjs" alt="Next.js 16" />
@@ -5,14 +27,6 @@
   <img src="https://img.shields.io/badge/Mapbox_GL-dark--v11-4264fb?style=flat-square&logo=mapbox" alt="Mapbox" />
   <img src="https://img.shields.io/badge/WHO_API-Disease_Outbreak_News-0072bc?style=flat-square" alt="WHO Data" />
 </p>
-
-# 🌍 PulseMap
-
-**Global disease surveillance, visualized like a weather radar.**
-
-Track outbreaks. Monitor spread patterns. WHO Disease Outbreak News on a 6-hour Vercel Cron cycle when you run it against your own Supabase project. The public demo serves the cached static snapshot.
-
-[**→ Live Demo**](https://pulsemap-three.vercel.app)
 
 ---
 
@@ -85,8 +99,8 @@ This isn't a wrapper around an API. It's a full data pipeline: ingestion from WH
 ### Install
 
 ```bash
-git clone https://github.com/DareDev256/pulsemap.git
-cd pulsemap
+git clone https://github.com/DareDev256/disease-outbreak-map.git
+cd disease-outbreak-map
 npm install
 ```
 
