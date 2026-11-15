@@ -66,7 +66,7 @@ This isn't a wrapper around an API. It's a full data pipeline: ingestion from WH
                     │         Supabase (Postgres)       │
                     │    RLS policies · Realtime-ready  │
                     ├──────────────────────────────────┤
-  Every 6h ───────▶│  WHO Disease Outbreak News API    │
+  Daily ──────────▶│  WHO Disease Outbreak News API    │
   POST /backfill ─▶│  Geocoding (Mapbox + static)      │
                     │  Deduplication · Severity scoring  │
                     └──────────────────────────────────┘
@@ -191,7 +191,7 @@ npm run test:watch   # Watch mode
 src/
 ├── app/
 │   ├── api/
-│   │   ├── cron/          # Vercel Cron job — WHO ingestion every 6h
+│   │   ├── cron/          # Vercel Cron job: WHO ingestion daily (06:00 UTC)
 │   │   └── backfill/      # POST endpoint — historical data by date range
 │   ├── page.tsx           # Main dashboard (client component)
 │   └── globals.css        # Dark theme + hotspot marker animations
@@ -220,7 +220,7 @@ src/
 - **Phase 1** — Interactive heatmap + pulsing hotspot markers on dark basemap
 - **Phase 1** — Weather-station UI: feed panel, detail drawer, severity legend
 - **Phase 1** — Supabase backend with RLS policies
-- **Phase 4** — Automated WHO pipeline via Vercel Cron (6h cycle)
+- **Phase 4** — Automated WHO pipeline via Vercel Cron (daily; Vercel's Hobby plan allows one run a day)
 - **Phase 4** — Geocoding, deduplication, severity estimation
 - **Phase 4** — Historical backfill API endpoint
 - **Phase 2** — Disease spread network with animated great-circle arcs
@@ -241,7 +241,7 @@ src/
 
 | Source | Status | Frequency |
 |--------|--------|-----------|
-| WHO Disease Outbreak News | **Active** | Every 6 hours |
+| WHO Disease Outbreak News | **Active** | Daily (06:00 UTC) |
 | CDC | Planned | — |
 | ReliefWeb | Planned | — |
 | Community Reports | Planned (Phase 5) | Real-time |
