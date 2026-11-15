@@ -63,22 +63,24 @@ export function safeParseJSON<T = unknown>(
 // ── safeJsonResponse ─────────────────────────────────────────────────────
 
 /**
- * Safely extract JSON from a fetch Response.
+ * Safely extract JSON from a fetch Response, or from an incoming Request
+ * (the backfill route reads its own request body through this).
  *
- * Wraps `res.json()` (which throws SyntaxError on non-JSON bodies like
+ * Wraps `.json()` (which throws SyntaxError on non-JSON bodies like
  * HTML error pages from CDN/proxy layers) and validates the result.
  */
 export async function safeJsonResponse<T = unknown>(
-  res: Response,
+  res: Request | Response,
   label = "response",
 ): Promise<ParseResult<T>> {
   try {
     const body = await res.json();
     return safeParseJSON<T>(body, label);
   } catch {
+    const status = "status" in res ? ` (status ${res.status})` : "";
     return {
       ok: false,
-      error: `${label}: response body is not valid JSON (status ${res.status})`,
+      error: `${label}: body is not valid JSON${status}`,
     };
   }
 }
